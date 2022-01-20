@@ -1,0 +1,26 @@
+{% extends 'main.html'%}
+
+
+
+
+{%block content%}
+<h2>
+    
+    
+    {% include 'nav.html'%}
+    i love you seriously  {{pk}}.
+</h2>
+{%for i in list%}
+<a href='rooms/{{i.name}}'>{{i.id}}</a><br>
+{%endfor%}
+
+{%endblock%}
+
+>
+{% block titles%}
+Helloooo
+{%endblock%}
+
+
+
+
