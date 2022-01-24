@@ -5,18 +5,52 @@
 
 {%block content%}
 <h2>
-    
+    <p> <a href="{% url 'forms' %}">forms</a>  </p>
     
     {% include 'nav.html'%}
     i love you seriously  {{pk}}.
 </h2>
-{%for i in list%}
-<a href='rooms/{{i.name}}'>{{i.id}}</a><br>
+{%for i in lists%}
+<a href='rooms/{{i.name}}'>{{i.id}}</a>
+<a href="{% url 'forms' %}">create </a>
+<br
 {%endfor%}
+
+<ul>
+    {%for i in users%}
+     <li><a href="rooms/{{i.id}}"> {{i.id}}</a> </li>
+     <li>{{i.name}}</li>
+     <li>{{i.country}}</li>
+     <li>{{i.age}}</li>
+     <a href="{% url 'update' i.id %}">edit</a>
+     <a href="{% url 'delete' i.id %}">delete</a>
+     <br>
+
+    {%endfor%}
+    
+
+</ul>
+
+<ul>
+    {%for i in posts%}
+     <li>{{i.title}}</li>
+     <li>{{i.writer.name}}</li>
+     <li>{{i.description}}</li>
+     <li>{{i.dateCreated}}</li>
+     <li>{{i.dateUpdated}}</li>
+     <br>
+
+    {%endfor%}
+    
+
+</ul>
+
+
+
 
 {%endblock%}
 
->
+
 {% block titles%}
 Helloooo
 {%endblock%}
