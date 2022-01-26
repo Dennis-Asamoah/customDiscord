@@ -1,4 +1,5 @@
 from tkinter.font import names
+from unicodedata import name
 from django.urls import path
 from . import views
 
@@ -8,5 +9,8 @@ urlpatterns = [
     path('new/',views.test,name='new'),
     path('forms/',views.forms,name='forms'),
     path('update/<str:pk>',views.update,name='update'),
-    path('delete/<int:pk>',views.delete,name='delete')
+    path('delete/<int:pk>',views.delete,name='delete'),
+    path('loginuser/',views.loginUser,name='loginuser'),
+    path('logoutuser/',views.logoutUser,name='logoutuser'),
+    path('registration/',views.Registration,name='registration'),
 ]

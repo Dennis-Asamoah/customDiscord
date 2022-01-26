@@ -4,15 +4,22 @@
 
 
 {%block content%}
+<a href="{% url 'logoutuser' %}">logout</a>
+<form method="GET" action="">
+  <input type='text'name='q' placeholder="search" />  
+</form>
 <h2>
-    <p> <a href="{% url 'forms' %}">forms</a>  </p>
+
+    <p> <a href="{% url 'forms' %}">forms</a> </p>
     
     {% include 'nav.html'%}
-    i love you seriously  {{pk}}.
+    i love you seriously  {{pk}}
 </h2>
 {%for i in lists%}
+{% if request.user.is_authenticated %}
 <a href='rooms/{{i.name}}'>{{i.id}}</a>
 <a href="{% url 'forms' %}">create </a>
+{% endif %}
 <br
 {%endfor%}
 

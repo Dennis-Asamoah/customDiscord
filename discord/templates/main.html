@@ -7,6 +7,9 @@
     <title>{% block titles%} {%endblock%}  </title>
 </head>
 <body>
+ {% for message in messages%}
+   <p>{{message}}</p>
+ {% endfor %}     
 
 {%block content%}
 

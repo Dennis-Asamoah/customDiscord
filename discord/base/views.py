@@ -1,7 +1,12 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
+from django.contrib.auth import login,logout,authenticate
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from  .models import Post,Usersdb
-from  .forms  import   UserForm
+from  .forms  import   UserForm,RegisterForm
+from  django.db.models import Q
+
 
 
 lists=[
@@ -10,14 +15,71 @@ lists=[
 ]
 
 
+
+def loginUser(request):  ###never name it login
+     context={'loging_in':'login'}  
+     if request.method=='POST':
+           email=request.POST.get('email')
+           email.lower()
+           password=request.POST.get('password')
+
+
+           user=authenticate(request,email=email,password=password)
+           print (user)
+           if user is None:
+                messages.error(request,'email or paaword incorrect')
+           else:
+                print('goood')
+                login(request,user)
+                print('joooo')
+                print(dir(request))
+                print(user)
+                #return HttpResponse('12')
+
+                return redirect('home')    
+                 
+
+           
+     return render(request,'base/loginForms.html',context)
+
+
+def Registration(request):
+    form=RegisterForm()
+    context={'form':form}
+    if request.method=='POST':
+       userReg=RegisterForm(request.POST)
+       
+       if userReg.is_valid():
+           userReg.save(commit=False)
+           userReg.email=request.POST.get('email').lower()
+           userReg.save()
+           return redirect('loginuser')
+           #return HttpResponse('12')
+    return render(request,'base/loginForms.html',context)
+
+
+
+
+
+@login_required(login_url='loginuser')
+def logoutUser(request):
+    logout(request)
+    return redirect('loginuser') 
+
+
+
+
+@login_required(login_url='loginuser')
 def home(request):
     users=Usersdb.objects.all()
     posts=Post.objects.all()
     #return  HttpResponse('hello guys')
     context={'lists':lists,'users':users,'posts':posts}
-    #print('here')
+    print('here')
     return render(request,'home.html',context)
 
+    
+@login_required(login_url='loginuser')
 def rooms(request,pk):
     pk=int(pk)
     post=Post.objects.get(id=pk)

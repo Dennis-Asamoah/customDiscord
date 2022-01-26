@@ -1,0 +1,36 @@
+{% extends 'main.html '%}
+
+
+
+{% block content %}
+{% if loging_in %}
+
+
+<form method='POST' action=''>
+
+    {%csrf_token%}
+    <label for='email'>email</label>
+    <input type='email' name='email' placeholder=' put email here'/>
+    
+    <label for'password'>password</label>
+    <input type='password' name='password' />
+
+    <input type='submit' name='submit' />
+
+
+</form>
+
+{%else%}
+<form  class='form-group' method='POST' action=''>
+ {% csrf_token %}  
+ {{form.as_p}}
+
+ <input type='submit' value='signUp'>
+  
+</form>
+
+
+
+{%endif%}
+
+{% endblock %}
