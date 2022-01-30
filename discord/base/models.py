@@ -38,6 +38,8 @@ class  Usersdb(models.Model):
     name=models.CharField(max_length=200)
     age=models.IntegerField()
     country=models.CharField(max_length=200)
+   # pic=models.FileField(null=True,default='214.jpg') 
+
 
     def __str__(self):
         return self.name

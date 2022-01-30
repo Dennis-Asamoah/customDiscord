@@ -25,10 +25,15 @@
 
 <ul>
     {%for i in users%}
-     <li><a href="rooms/{{i.id}}"> {{i.id}}</a> </li>
+     <li><a href="/?q={{i.name}}"> {{i.id}}</a> </li>
      <li>{{i.name}}</li>
      <li>{{i.country}}</li>
      <li>{{i.age}}</li>
+     
+     {% if i.pic.url %}
+     <img src="{{i.pic.url}}"/>
+     {% endif %}
+
      <a href="{% url 'update' i.id %}">edit</a>
      <a href="{% url 'delete' i.id %}">delete</a>
      <br>

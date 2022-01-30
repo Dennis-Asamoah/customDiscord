@@ -71,7 +71,17 @@ def logoutUser(request):
 
 @login_required(login_url='loginuser')
 def home(request):
-    users=Usersdb.objects.all()
+     
+    q=request.GET.get('q') if request.GET.get('q')!=None else '' ###search 
+    
+    #users=Usersdb.objects.filter(name__icontains=q)
+    users=Usersdb.objects.filter(Q(name__icontains=q) |
+    Q(country__icontains=q)
+    )
+
+
+
+    #users=Usersdb.objects.all()
     posts=Post.objects.all()
     #return  HttpResponse('hello guys')
     context={'lists':lists,'users':users,'posts':posts}
@@ -98,7 +108,7 @@ def forms(request):
      context={'form':form}
      if request.method == 'POST':
          #print (request.POST)
-         User=UserForm(request.POST)
+         User=UserForm(request.POST,request.FILES)
          print('good')
          
          if User.is_valid():
